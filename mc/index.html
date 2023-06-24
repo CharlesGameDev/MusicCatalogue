@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Charles Music Catalogue - The Minish Cap</title>
+</head>
+<body>
+    <script src="../js/cookie.js"></script>
+    <script defer src="../js/player.js"></script>
+    <script defer>
+        window.addEventListener("DOMContentLoaded", function(_) {
+            create_song_list([
+                "Game Over_6/24/2023",
+                "Syrup The Witch_6/23/2023",
+                "Minish Village_6/19/2023",
+                "Minish Woods_6/24/2023",
+                "Boss_6/23/2023",
+                "Cucco Chase_6/19/2023",
+            ])
+        })
+    </script>
+
+    <div class="navbar">
+        <audio id="audio" src=""></audio>
+        <br>
+        <input type="range" id="current-time" max="100" value="0">
+        <button class="material-symbols-outlined play_button" id="play_button" onclick="toggle_music()">play_arrow</button>
+        <button class="material-symbols-outlined play_button" id="loop_button" onclick="toggle_loop()">laps</button>
+        <div class="rightbar">
+            <span class="current-time">Volume: </span>
+            <br>
+            <input style="width: 200px;" type="range" id="volume" max="100" value="0">
+        </div>
+        <br>
+        <span class="current-time" id="current-time-text">0:00 / 0:00 - </span>
+        <span id="current-song" style="font-size: x-large;">None</span>
+    </div>
+
+    <div class="main">
+        <h1>The Minish Cap</h1>
+        <h3>I'm planning on making an HD remake if I can find someone to make 3D models</h3>
+        <span class="song-button" onclick="window.location = window.location.href.replace('mc', '')" style="color: cadetblue;">Back to main page</span>
+        <br>
+        <span style="color: darkgray; font-weight: bold;" id="song-count">0 songs</span>
+        <br>
+        <br>
+        <br>
+        <div id="song-list">
+        </div>
+    </div>
+</body>
+</html>
