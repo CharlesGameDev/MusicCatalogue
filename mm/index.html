@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Charles Music Catalogue - Majora's Mask</title>
+</head>
+<body>
+    <script src="../js/cookie.js"></script>
+    <script defer src="../js/player.js"></script>
+    <script defer>
+        window.addEventListener("DOMContentLoaded", function(_) {
+            create_song_list([
+                "Astral Observatory_6/5/2023",
+                "Chase_6/4/2023",
+                "Clock Town First Day_6/3/2023",
+                "Clock Town Second Day_6/3/2023",
+                "Clock Town Third Day_6/3/2023",
+                "Got the Ocarina!_6/6/2023",
+                "Great Fairy Fountain Pre Save_6/4/2023",
+                "Great Fairy Fountain Post Save_6/4/2023",
+                "Inside a House_6/5/2023",
+                "Majora\\'s Theme_6/4/2023",
+                "Ocarina Song of Time_6/6/2023",
+                "Shop_6/6/2023",
+                "Stone Tower Temple_6/5/2023",
+                "Zelda\\'s Lullaby_6/6/2023"
+            ])
+        })
+    </script>
+
+    <div class="navbar">
+        <audio id="audio" src=""></audio>
+        <br>
+        <input type="range" id="current-time" max="100" value="0">
+        <button class="material-symbols-outlined play_button" id="play_button" onclick="toggle_music()">play_arrow</button>
+        <button class="material-symbols-outlined play_button" id="loop_button" onclick="toggle_loop()">laps</button>
+        <div class="rightbar">
+            <span class="current-time">Volume: </span>
+            <br>
+            <input style="width: 200px;" type="range" id="volume" max="100" value="0">
+        </div>
+        <br>
+        <span class="current-time" id="current-time-text">0:00 / 0:00 - </span>
+        <span id="current-song" style="font-size: x-large;">None</span>
+        <br>
+    </div>
+
+    <div class="main">
+        <h1>Majora's Mask</h1>
+        <h3>Might be used for a future MMHD remake. idk.</h3>
+        <span class="song-button" onclick="window.location = window.location.origin" style="color: cadetblue;">Back to main page</span>
+        <br>
+        <span style="color: darkgray; font-weight: bold;" id="song-count">0 songs</span>
+        <br>
+        <br>
+        <br>
+        <div id="song-list">
+        </div>
+    </div>
+</body>
+</html>
