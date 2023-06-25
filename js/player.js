@@ -10,7 +10,8 @@ const audio = document.getElementById("audio");
 
 let playing = false;
 let canPlay = false;
-let loop = false;
+let currentSongID = '';
+let songIndexList = {};
 
 if (getCookie("volume") == "") {
     setCookie("volume", 50);
@@ -19,15 +20,34 @@ volumeSlider.value = getCookie("volume");
 audio.volume = volumeSlider.value / 100;
 
 function create_song_list(list) {
+    let i = 0;
     list.forEach(song => {
         song = song.split("_");
-        console.log(song);
-        const html = `
-        <span class="song-button" onclick="set_music(['${song[0]}','${song[1]}'])">${song[0].replace("\\", "")}</span>
-        <span class="song-button-date">${song[1]}</span>
-        <br>`;
-        console.log(html);
-        songList.innerHTML += html;
+        songIndexList[song[0]] = i;
+        const songButton = document.createElement("span");
+        songButton.className = "song-button";
+        songButton.id = song[0];
+        songButton.innerText = song[0];
+
+        const songButtonDate = document.createElement("span");
+        songButtonDate.className = "song-button-date";
+        songButtonDate.id = song[0] + "-date";
+        songButtonDate.innerText = song[1];
+
+        songList.appendChild(songButton);
+        songList.innerHTML += "&nbsp;"
+        songList.appendChild(songButtonDate);
+        songList.innerHTML += "<br>";
+        i++;
+    });
+    console.log(songIndexList);
+    list.forEach(song => {
+        song = song.split("_");
+        const songButton = document.getElementById(song[0]);
+
+        songButton.onclick = function() {
+            set_music(song);
+        }
     });
     songCount.innerText = `${list.length} ${list.length == 1 ? "song" : "songs"}`;
 }
@@ -63,12 +83,19 @@ audio.addEventListener("timeupdate", function(e) {
 });
 
 audio.addEventListener("ended", function(e) {
-    if (loop) {
-        audio.currentTime = 0;
+    audio.currentTime = 0;
+    if (audio.loop) {
         audio.play();
     } else {
-        playing = false;
-        update_play_button();
+        let nextIndex = songIndexList[currentSongID] + 1;
+        if (nextIndex >= Object.keys(songIndexList).length) {
+            nextIndex = 0;
+        }
+
+        const song = Object.keys(songIndexList)[nextIndex];
+        const date = document.getElementById(song + "-date").innerText;
+
+        set_music([song, date]);
     }
 })
 
@@ -88,10 +115,17 @@ function update_play_button() {
 }
 
 function set_music(music) {
+    console.log("New song: " + music);
     let start_on_load = playing;
     playing = false;
     canPlay = false;
     currentSong.innerText = "Loading...";
+
+    if (currentSongID != '') {
+        document.getElementById(currentSongID).className = "song-button";
+    }
+    currentSongID = music[0];
+    document.getElementById(currentSongID).className = "song-button playing";
 
     update_play_button();
     audio.src = `${music[0]}.wav`;
@@ -111,9 +145,9 @@ function set_music(music) {
 }
 
 function toggle_loop(){
-    loop = !loop;
+    audio.loop = !audio.loop;
 
-    loopButton.style.color = loop ? "lime" : "white";
+    loopButton.style.color = audio.loop ? "lime" : "white";
 }
 
 function toggle_music() {
