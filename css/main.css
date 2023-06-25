@@ -15,14 +15,15 @@ h4 {
 }
 
 .albumlist {
-    display: flex;
+    display: block;
     justify-content: space-around;
-    margin: 0 auto;
+    margin: auto;
+    margin-left: 20px;
     padding: 50px 0;
 }
 
 .albumlist img {
-    width: 250px;
+    width: 220px;
     height: auto;
     margin: 10px;
     cursor: pointer;
@@ -83,6 +84,12 @@ h4 {
 .song-button:hover {
     color: blueviolet;
     cursor: pointer;
+    text-decoration: underline;
+}
+
+.song-button:active {
+    color: blueviolet;
+    cursor: default;
     text-decoration: underline;
 }
 
